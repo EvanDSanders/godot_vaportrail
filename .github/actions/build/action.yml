@@ -108,4 +108,10 @@ runs:
       env:
         SCONS_CACHE: ${{ github.workspace }}/${{ inputs.scons-cache }}/
       run: |
-        scons target=${{ inputs.build-target-type }} platform=${{ inputs.platform }} arch=${{ inputs.arch }} precision=${{ inputs.float-precision }} production=yes
+        EXTRA_ARGS=""
+        if [ "${{ inputs.platform }}" = "web" ]; then
+          # Threaded web builds need cross-origin isolation (COOP/COEP) headers on
+          # the host, which is a hassle to set up - build without threads instead.
+          EXTRA_ARGS="threads=no"
+        fi
+        scons target=${{ inputs.build-target-type }} platform=${{ inputs.platform }} arch=${{ inputs.arch }} precision=${{ inputs.float-precision }} production=yes $EXTRA_ARGS
