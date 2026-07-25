@@ -49,3 +49,12 @@ compile_commands.json
 .vscode/*
 !.vscode/extensions.json
 .DS_Store
+
+# Neural Inverse (why is it weird?)
+.ide/*
+!.ide/extensions.json
+.DS_Store
+
+
+nohup.out
+**/**/__pycashe__*

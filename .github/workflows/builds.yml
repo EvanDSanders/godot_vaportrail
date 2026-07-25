@@ -1,6 +1,7 @@
 name: Build GDExtension
 on:
   workflow_call:
+  workflow_dispatch:
   push:
     tags:
       - v0.*
@@ -15,126 +16,128 @@ jobs:
       matrix:
         include:
         # Debug templates
-          - platform: linux
+          - platform: web
             float-precision: single
-            arch: x86_64
+            arch: wasm32
             target-type: template_debug
             os: ubuntu-22.04
 
-          - platform: windows
+          # Release templates
+          - platform: web
             float-precision: single
-            arch: x86_32
-            target-type: template_debug
-            os: windows-latest
-
-          - platform: windows
-            float-precision: single
-            arch: x86_64
-            target-type: template_debug
-            os: windows-latest
-
-          - platform: macos
-            float-precision: single
-            arch: universal
-            target-type: template_debug
-            os: macos-latest
-
-          - platform: android
-            float-precision: single
-            arch: arm64
-            target-type: template_debug
+            arch: wasm32
+            target-type: template_release
             os: ubuntu-22.04
 
-          - platform: android
-            float-precision: single
-            arch: arm32
-            target-type: template_debug
-            os: ubuntu-22.04
-
-          - platform: android
-            float-precision: single
-            arch: x86_64
-            target-type: template_debug
-            os: ubuntu-22.04
-
-          - platform: android
-            float-precision: single
-            arch: x86_32
-            target-type: template_debug
-            os: ubuntu-22.04
-
+            # Other platforms, disabled for now - re-enable when expanding past Web.
+            #
+            #          - platform: linux
+            #            float-precision: single
+            #            arch: x86_64
+            #            target-type: template_debug
+            #            os: ubuntu-22.04
+            #
+            #          - platform: windows
+            #            float-precision: single
+            #            arch: x86_32
+            #            target-type: template_debug
+            #            os: windows-latest
+            #
+            #          - platform: windows
+            #            float-precision: single
+            #            arch: x86_64
+            #            target-type: template_debug
+            #            os: windows-latest
+            #
+            #          - platform: macos
+            #            float-precision: single
+            #            arch: universal
+            #            target-type: template_debug
+            #            os: macos-latest
+            #
+            #          - platform: android
+            #            float-precision: single
+            #            arch: arm64
+            #            target-type: template_debug
+            #            os: ubuntu-22.04
+            #
+            #          - platform: android
+            #            float-precision: single
+            #            arch: arm32
+            #            target-type: template_debug
+            #            os: ubuntu-22.04
+            #
+            #          - platform: android
+            #            float-precision: single
+            #            arch: x86_64
+            #            target-type: template_debug
+            #            os: ubuntu-22.04
+            #
+            #          - platform: android
+            #            float-precision: single
+            #            arch: x86_32
+            #            target-type: template_debug
+            #            os: ubuntu-22.04
+            #
             #          - platform: ios
             #            float-precision: single
             #            arch: arm64
             #            target-type: template_debug
             #            os: macos-latest
             #
-            #          - platform: web
+            #          - platform: linux
             #            float-precision: single
-            #            arch: wasm32
-            #            target-type: template_debug
+            #            arch: x86_64
+            #            target-type: template_release
             #            os: ubuntu-22.04
-
-          # Release templates
-          - platform: linux
-            float-precision: single
-            arch: x86_64
-            target-type: template_release
-            os: ubuntu-22.04
-
-          - platform: windows
-            float-precision: single
-            arch: x86_32
-            target-type: template_release
-            os: windows-latest
-
-          - platform: windows
-            float-precision: single
-            arch: x86_64
-            target-type: template_release
-            os: windows-latest
-
-          - platform: macos
-            float-precision: single
-            arch: universal
-            target-type: template_release
-            os: macos-latest
-
-          - platform: android
-            float-precision: single
-            arch: arm64
-            target-type: template_release
-            os: ubuntu-22.04
-
-          - platform: android
-            float-precision: single
-            arch: arm32
-            target-type: template_release
-            os: ubuntu-22.04
-
-          - platform: android
-            float-precision: single
-            arch: x86_64
-            target-type: template_release
-            os: ubuntu-22.04
-
-          - platform: android
-            float-precision: single
-            arch: x86_32
-            target-type: template_release
-            os: ubuntu-22.04
-
-            # - platform: ios
-            #   float-precision: single
-            #   arch: arm64
-            #   target-type: template_release
-            #   os: macos-latest
-
-            # - platform: web
-            #   float-precision: single
-            #   arch: wasm32
-            #   target-type: template_release
-            #   os: ubuntu-22.04
+            #
+            #          - platform: windows
+            #            float-precision: single
+            #            arch: x86_32
+            #            target-type: template_release
+            #            os: windows-latest
+            #
+            #          - platform: windows
+            #            float-precision: single
+            #            arch: x86_64
+            #            target-type: template_release
+            #            os: windows-latest
+            #
+            #          - platform: macos
+            #            float-precision: single
+            #            arch: universal
+            #            target-type: template_release
+            #            os: macos-latest
+            #
+            #          - platform: android
+            #            float-precision: single
+            #            arch: arm64
+            #            target-type: template_release
+            #            os: ubuntu-22.04
+            #
+            #          - platform: android
+            #            float-precision: single
+            #            arch: arm32
+            #            target-type: template_release
+            #            os: ubuntu-22.04
+            #
+            #          - platform: android
+            #            float-precision: single
+            #            arch: x86_64
+            #            target-type: template_release
+            #            os: ubuntu-22.04
+            #
+            #          - platform: android
+            #            float-precision: single
+            #            arch: x86_32
+            #            target-type: template_release
+            #            os: ubuntu-22.04
+            #
+            #          - platform: ios
+            #            float-precision: single
+            #            arch: arm64
+            #            target-type: template_release
+            #            os: macos-latest
 
           # Double precision templates
           # Double precision debug templates

@@ -99,22 +99,12 @@ runs:
       uses: actions/cache@v4
       with:
         path: |
-          ${{ github.workspace }}/${{ inputs.gdextension-location }}/${{ inputs.scons-cache }}/
-          ${{ github.workspace }}/${{ inputs.godot-cpp }}/${{ inputs.scons-cache }}/
+          ${{ github.workspace }}/${{ inputs.scons-cache }}/
         key: ${{ inputs.platform }}_${{ inputs.arch }}_${{ inputs.float-precision }}_${{ inputs.build-target-type }}_cache
-# Build godot-cpp
-    - name: Build godot-cpp Debug Build
+# Build gdextension (root SConstruct pulls in godot-cpp/SConstruct itself)
+    - name: Build GDExtension
       shell: sh
       env:
-        SCONS_CACHE: ${{ github.workspace }}/${{ inputs.godot-cpp }}/${{ inputs.scons-cache }}/
-      run: |
-        scons target=${{ inputs.build-target-type }} platform=${{ inputs.platform }} arch=${{ inputs.arch }} generate_bindings=yes precision=${{ inputs.float-precision }}
-      working-directory: ${{ inputs.godot-cpp }}
-# Build gdextension
-    - name: Build GDExtension Debug Build
-      shell: sh
-      env:
-        SCONS_CACHE: ${{ github.workspace }}/${{ inputs.gdextension-location }}/${{ inputs.scons-cache }}/
+        SCONS_CACHE: ${{ github.workspace }}/${{ inputs.scons-cache }}/
       run: |
         scons target=${{ inputs.build-target-type }} platform=${{ inputs.platform }} arch=${{ inputs.arch }} precision=${{ inputs.float-precision }} production=yes
-      working-directory: ${{ inputs.gdextension-location }}
