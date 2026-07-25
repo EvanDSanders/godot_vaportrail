@@ -68,6 +68,7 @@ runs:
       with:
         version: ${{ inputs.em_version }}
         actions-cache-folder: ${{ inputs.em_cache_folder }}.${{ inputs.float-precision }}.${{ inputs.build-target-type }}
+        cache-key: emsdk-${{ inputs.em_version }}-linux-x64-${{ inputs.float-precision }}-${{ inputs.build-target-type }}
     - name: Web - Verify Emscripten setup
       if: ${{ inputs.platform == 'web' }}
       shell: sh
